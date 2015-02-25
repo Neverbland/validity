@@ -4,6 +4,18 @@ import (
 	"testing"
 )
 
+func TestIntValidateNonzeroPass(t *testing.T) {
+	rules := ValidationRules{"Bar": []string{"Int", "nonzero"}}
+
+	if !ValidateStruct(TestStruct{Bar: 1}, rules).IsValid {
+		t.Errorf("Int nonzero validator does not pass.")
+	}
+
+	if ValidateStruct(TestStruct{}, rules).IsValid {
+		t.Errorf("Int nonzero validator does not pass.")
+	}
+}
+
 func TestIntValidateAcceptedPass(t *testing.T) {
 	data := TestStruct{Bar: 1}
 	rules := ValidationRules{"Bar": []string{"Int", "Accepted"}}
@@ -22,8 +34,6 @@ func TestIntValidateAcceptedFail(t *testing.T) {
 		t.Errorf("Int accepted validator does not fail.")
 	}
 }
-
-
 
 func TestIntValidateBetweenPass(t *testing.T) {
 	data := TestStruct{Bar: 5}
@@ -53,8 +63,6 @@ func TestIntValidateBetweenFailUpper(t *testing.T) {
 	}
 }
 
-
-
 func TestIntValidateDigitsPass(t *testing.T) {
 	data := TestStruct{Bar: 500}
 	rules := ValidationRules{"Bar": []string{"Int", "digits:3"}}
@@ -73,8 +81,6 @@ func TestIntValidateBetweenFail(t *testing.T) {
 		t.Errorf("Int digits validator does not fail.")
 	}
 }
-
-
 
 func TestIntValidateDigitsBetweenPass(t *testing.T) {
 	data := TestStruct{Bar: 500}
@@ -104,8 +110,6 @@ func TestIntValidateDigitsBetweenFailUpper(t *testing.T) {
 	}
 }
 
-
-
 func TestIntValidateMaxPass(t *testing.T) {
 	data := TestStruct{Bar: 4}
 	rules := ValidationRules{"Bar": []string{"Int", "max:5"}}
@@ -124,8 +128,6 @@ func TestIntValidateMaxFail(t *testing.T) {
 		t.Errorf("Int max validator does not fail.")
 	}
 }
-
-
 
 func TestIntValidateMinPass(t *testing.T) {
 	data := TestStruct{Bar: 8}

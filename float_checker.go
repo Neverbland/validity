@@ -1,8 +1,8 @@
 package validity
 
 import (
-	"strconv"
 	"math"
+	"strconv"
 )
 
 type FloatValidityChecker struct {
@@ -49,6 +49,10 @@ func (v FloatValidityChecker) GetErrors() []string {
 //----------------------------------------------------------------------------------------------------------------------
 // For explanation involving validation rules, checkout the first huge comment in validity.go.
 //----------------------------------------------------------------------------------------------------------------------
+
+func (v FloatValidityChecker) ValidateNonzero() bool {
+	return v.Item != 0
+}
 
 func (v FloatValidityChecker) ValidateAccepted() bool {
 	return v.Item > 0

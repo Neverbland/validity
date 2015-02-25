@@ -4,6 +4,17 @@ import (
 	"testing"
 )
 
+func TestStringNonzeroAcceptedPass(t *testing.T) {
+	rules := ValidationRules{"Foo": []string{"String", "nonzero"}}
+
+	if !ValidateStruct(TestStruct{Foo: "foo"}, rules).IsValid {
+		t.Errorf("String nonzero validator does not pass.")
+	}
+	if ValidateStruct(TestStruct{}, rules).IsValid {
+		t.Errorf("String nonzero validator does not pass.")
+	}
+}
+
 func TestStringValidateAcceptedPass(t *testing.T) {
 	data := TestStruct{Foo: "on"}
 	rules := ValidationRules{"Foo": []string{"String", "Accepted"}}
@@ -22,8 +33,6 @@ func TestStringValidateAcceptedFail(t *testing.T) {
 		t.Errorf("String accepted validator does not fail.")
 	}
 }
-
-
 
 func TestStringValidateAlphaPass(t *testing.T) {
 	data := TestStruct{Foo: "ThisIsAlpha"}
@@ -44,8 +53,6 @@ func TestStringValidateAlphaFail(t *testing.T) {
 	}
 }
 
-
-
 func TestStringValidateAlphaDashPass(t *testing.T) {
 	data := TestStruct{Foo: "This_Is-Alpha_Dash"}
 	rules := ValidationRules{"Foo": []string{"String", "alpha_dash"}}
@@ -65,8 +72,6 @@ func TestStringValidateAlphaDashFail(t *testing.T) {
 	}
 }
 
-
-
 func TestStringValidateAlphaNumPass(t *testing.T) {
 	data := TestStruct{Foo: "This1Is2Alpha4Num"}
 	rules := ValidationRules{"Foo": []string{"String", "alpha_num"}}
@@ -85,8 +90,6 @@ func TestStringValidateAlphaNumFail(t *testing.T) {
 		t.Errorf("String alpha_num validator does not fail.")
 	}
 }
-
-
 
 func TestStringValidateBetweenPass(t *testing.T) {
 	data := TestStruct{Foo: "fooo"}
@@ -116,8 +119,6 @@ func TestStringValidateBetweenFailUpper(t *testing.T) {
 	}
 }
 
-
-
 func TestStringValidateDatePass(t *testing.T) {
 	data := TestStruct{Foo: "Jan 2, 2006 at 3:04pm (MST)"}
 	rules := ValidationRules{"Foo": []string{"String", "Date"}}
@@ -136,8 +137,6 @@ func TestStringValidateDateFail(t *testing.T) {
 		t.Errorf("String date validator does not fail.")
 	}
 }
-
-
 
 func TestStringValidateEmailPass(t *testing.T) {
 	data := TestStruct{Foo: "connor@peet.io"}
@@ -158,8 +157,6 @@ func TestStringValidateEmailFail(t *testing.T) {
 	}
 }
 
-
-
 func TestStringValidateIpv4Pass(t *testing.T) {
 	data := TestStruct{Foo: "127.0.0.1"}
 	rules := ValidationRules{"Foo": []string{"String", "Ipv4"}}
@@ -178,8 +175,6 @@ func TestStringValidateIpv4Fail(t *testing.T) {
 		t.Errorf("String ipv4 validator does not fail.")
 	}
 }
-
-
 
 func TestStringValidateIpv6Pass(t *testing.T) {
 	data := TestStruct{Foo: "::1"}
@@ -200,8 +195,6 @@ func TestStringValidateIpv6Fail(t *testing.T) {
 	}
 }
 
-
-
 func TestStringValidateMaxPass(t *testing.T) {
 	data := TestStruct{Foo: "foo"}
 	rules := ValidationRules{"Foo": []string{"String", "Max:4"}}
@@ -220,8 +213,6 @@ func TestStringValidateMaxFail(t *testing.T) {
 		t.Errorf("String max validator does not fail.")
 	}
 }
-
-
 
 func TestStringValidateMinPass(t *testing.T) {
 	data := TestStruct{Foo: "fooooooo"}
@@ -242,8 +233,6 @@ func TestStringValidateMinFail(t *testing.T) {
 	}
 }
 
-
-
 func TestStringValidateRegexPass(t *testing.T) {
 	data := TestStruct{Foo: "FooBar"}
 	rules := ValidationRules{"Foo": []string{"String", "Regexp:^Fo.*ar$"}}
@@ -262,8 +251,6 @@ func TestStringValidateRegexFail(t *testing.T) {
 		t.Errorf("String regexp validator does not fail.")
 	}
 }
-
-
 
 func TestStringValidateUrlPass(t *testing.T) {
 	data := TestStruct{Foo: "http://peet.io"}

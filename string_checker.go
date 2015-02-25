@@ -1,10 +1,10 @@
 package validity
 
 import (
-	"strconv"
-	"regexp"
 	"net"
 	"net/url"
+	"regexp"
+	"strconv"
 	"time"
 )
 
@@ -49,6 +49,10 @@ func (v StringValidityChecker) parseIP() net.IP {
 //----------------------------------------------------------------------------------------------------------------------
 // For explanation involving validation rules, checkout the first huge comment in validity.go.
 //----------------------------------------------------------------------------------------------------------------------
+
+func (v StringValidityChecker) ValidateNonzero() bool {
+	return v.Item != ""
+}
 
 func (v StringValidityChecker) ValidateAccepted() bool {
 	return v.Item == "yes" || v.Item == "on" || v.Item == "1"
