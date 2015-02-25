@@ -1,17 +1,17 @@
 package validity
 
 import (
-	"strings"
 	"reflect"
+	"strings"
 )
 
 // ValidityChecker is the base interface from which type validators must implement.
 type ValidityChecker interface {
 	// GetErrors is the method which is actually called to run validation. It should return a slice of validation rules
 	// which are invalid, or nil if there are no invalid rules.
-	GetItem()   interface{}
-	GetKey()    string
-	GetRules()  []string
+	GetItem() interface{}
+	GetKey() string
+	GetRules() []string
 	GetErrors() []string
 }
 
@@ -25,9 +25,13 @@ func GetCheckerErrors(rules []string, instance ValidityChecker) []string {
 	errors := []string{}
 
 	for _, rule := range rules {
+		//omit rules used by parsers
+		if inSlice(rule, []string{"required"}) {
+			continue
+		}
 		// First we want to split the rule into its method and arguments parts,
 		// so we have a []string{"rule", "arg1,arg2"}.
-		parts  := strings.SplitN(rule, ":", 2)
+		parts := strings.SplitN(rule, ":", 2)
 		method := snakeToStudly(strings.ToLower(parts[0]))
 		// The parameters to call is a list of reflection values.
 		params := []reflect.Value{}
